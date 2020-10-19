@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class ="table table-striped" style="text-align: left;">
+        <thead>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+            {% for share in shares_row %}
+            <tr>
+                <td>{{ share["symbol"] }}</td>
+                {% for quote in quote_list %}
+                {% if share["symbol"] == quote["symbol"] %}
+                <td>
+                    {{ quote["name"] }}
+                </td>
+                {% endif %}
+                {% endfor %}
+                <td>{{ share["number_of_shares"] }}</td>
+                {% for quote in quote_list %}
+                    {% if share["symbol"] == quote["symbol"] %}
+                    <td>
+                        {{ usd(quote["price"]) }}
+                    </td>
+                    {% endif %}
+                {% endfor %}
+                {%for quote in quote_list %}
+                    {% if share["symbol"] == quote["symbol"] %}
+                    <td>
+                        {{ usd(share["number_of_shares"] * quote["price"]) }}
+                    </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">
+                    CASH
+                </td>
+                {% for cash in user_cash %}
+                    <td>
+                        {{ usd(cash["cash"]) }}
+                    </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+        <tfoot style="font-weight: bold;">
+            <tr>
+                <td colspan="4"></td>
+                <td>
+                    {{ users_total_holdings }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

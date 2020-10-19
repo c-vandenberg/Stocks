@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Password Reset
+{% endblock %}
+
+{% block main %}
+    <form action="/reset" method="post">
+        <footer class="small text-center text-muted">
+            Please enter the email that you registered with. You will be sent an email that will allow you to reset your password.
+        </footer>
+        <br>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="email" placeholder="Email Address" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Reset</button>
+    </form>
+{% endblock %}
